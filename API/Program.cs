@@ -1,3 +1,5 @@
+using API.Models;
+
 Console.Clear();
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,5 +26,3 @@ app.MapGet("/produto/listar", () => produtos);
 app.MapPost("/produto/cadastrar", () => "Cadastro de produtos");
 
 app.Run();
-
-record Produto(string nome, string descricao);
