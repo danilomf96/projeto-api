@@ -1,7 +1,9 @@
 ﻿namespace API.Models;
 
-// public class Produto
-// {
+public class Produto
+{
+    //Atributos(java) ou propriedades(c#) = Caracteristicas de um Objeto
 
-// }
-record Produto(string nome, string descricao);
+    //getter e setter em C#
+    public string Nome { get; set; }
+}

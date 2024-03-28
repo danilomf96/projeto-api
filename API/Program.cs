@@ -5,6 +5,12 @@ Console.Clear();
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+//getter e setter em C#
+Produto produto = new Produto();
+produto.Nome = "Bolacha";
+Console.WriteLine(produto.Nome);
+
+
 //criando array list e instanciando objeto
 List<Produto> produtos = new List<Produto>();
 produtos.Add(new Produto("Celular", "IOS"));
