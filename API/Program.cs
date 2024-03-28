@@ -40,10 +40,10 @@ app.MapGet("/produto/buscar/{nome}", (/* Pegar Informaçao da Rota-- URL---> */[
             if (produtos[i].Nome == nome)
             {
                 //retornar o produto encontrado
-                return produtos[i];
+                return Results.Ok(produtos[i]);
             }
         }
-        return null;
+        return Results.NotFound();
     }
 );
 

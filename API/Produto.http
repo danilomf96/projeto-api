@@ -3,3 +3,7 @@ GET http://localhost:5088/produto/listar
 
 ### Teste API restclient Cadastro de produtos
 POST http://localhost:5088/produto/cadastrar
+
+### Teste API restclient busca de produtos
+GET http://localhost:5088/produto/buscar/Celular
+
