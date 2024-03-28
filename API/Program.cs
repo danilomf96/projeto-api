@@ -6,17 +6,20 @@ var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
 //getter e setter em C#
-Produto produto = new Produto();
-produto.Nome = "Bolacha";
-Console.WriteLine(produto.Nome);
+// Produto produto = new Produto();
+// produto.Nome = "Bolacha";
+// Console.WriteLine(produto.Nome);
+
+
+
 
 
 //criando array list e instanciando objeto
 List<Produto> produtos = new List<Produto>();
-produtos.Add(new Produto("Celular", "IOS"));
-produtos.Add(new Produto("Celular", "Android"));
-produtos.Add(new Produto("TV", "LG"));
-produtos.Add(new Produto("Placa de video", "NVIDIA"));
+produtos.Add(new Produto("Celular", "IOS", 4000));
+produtos.Add(new Produto("Celular", "Android", 2000));
+produtos.Add(new Produto("TV", "LG", 2500));
+produtos.Add(new Produto("Placa de video", "NVIDIA", 2800));
 
 
 // Funcionalidades da aplicaçao --> EndPoints
