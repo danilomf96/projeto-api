@@ -50,4 +50,13 @@ app.MapGet("/produto/buscar/{nome}", (/* Pegar Informaçao da Rota-- URL---> */[
 // !EXERCICIO! <---- CADASTRAR PRODUTOS DENTRO DA LISTA ---> !EXERCICIO!
 app.MapPost("/produto/cadastrar", () => "Cadastro de produtos");
 
+/*
+EXERCICIOS
+1)CADASTRAR UM PRODUTO
+--PELA URL
+--PELO CORPO
+--REMOÇAO DO PRODUTO
+--ALTERAÇAO DO PRODUTO
+*/
+
 app.Run();
