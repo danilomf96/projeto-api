@@ -1,4 +1,5 @@
 using API.Models;
+using Microsoft.AspNetCore.Mvc;
 
 Console.Clear();
 
@@ -12,14 +13,14 @@ var app = builder.Build();
 
 
 
-
-
 //criando array list e instanciando objeto
-List<Produto> produtos = new List<Produto>();
-produtos.Add(new Produto("Celular", "IOS", 4000));
-produtos.Add(new Produto("Celular", "Android", 2000));
-produtos.Add(new Produto("TV", "LG", 2500));
-produtos.Add(new Produto("Placa de video", "NVIDIA", 2800));
+List<Produto> produtos =
+[
+    new Produto("Celular", "IOS", 4000),
+    new Produto("Celular", "Android", 2000),
+    new Produto("TV", "LG", 2500),
+    new Produto("Placa de video", "NVIDIA", 2800),
+];
 
 
 // Funcionalidades da aplicaçao --> EndPoints
@@ -30,6 +31,21 @@ app.MapGet("/", () => "API de produtos");
 app.MapGet("/produto", () => "Produtos");
 //GET: http://localhost:5088/produto/listar
 app.MapGet("/produto/listar", () => produtos);
+
+//GET: http://localhost:5088/produto/buscar/nomedoproduto
+app.MapGet("/produto/buscar/{nome}", (/* Pegar Informaçao da Rota-- URL---> */[FromRoute] string nome) =>
+    {
+        for (int i = 0; i < produtos.Count; i++)
+        {
+            if (produtos[i].Nome == nome)
+            {
+                //retornar o produto encontrado
+                return produtos[i];
+            }
+        }
+        return null;
+    }
+);
 
 // !EXERCICIO! <---- CADASTRAR PRODUTOS DENTRO DA LISTA ---> !EXERCICIO!
 app.MapPost("/produto/cadastrar", () => "Cadastro de produtos");
