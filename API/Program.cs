@@ -12,10 +12,12 @@ produtos.Add(new Produto("Placa de video", "NVIDIA"));
 
 
 // Funcionalidades da aplicaçao --> EndPoints
-app.MapGet("/", () => "Localhost");
+
+//GET: http://localhost:5088
+app.MapGet("/", () => "API de produtos");
+//GET: http://localhost:5088/produto
 app.MapGet("/produto", () => "Produtos");
-
-
+//GET: http://localhost:5088/produto/listar
 app.MapGet("/produto/listar", () => produtos);
 
 // !EXERCICIO! <---- CADASTRAR PRODUTOS DENTRO DA LISTA ---> !EXERCICIO!
