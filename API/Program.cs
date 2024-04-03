@@ -48,12 +48,24 @@ app.MapGet("/produto/buscar/{nome}", (/* Pegar Informaçao da Rota-- URL---> */[
 );
 
 // !EXERCICIO! <---- CADASTRAR PRODUTOS DENTRO DA LISTA ---> !EXERCICIO!
-app.MapPost("/produto/cadastrar", () => "Cadastro de produtos");
+//app.MapPost("/produto/cadastrar", () => "Cadastro de produtos");
+
 
 /*
 EXERCICIOS
 1)CADASTRAR UM PRODUTO
---PELA URL
+*/
+
+//--PELA URL
+
+// Endpoint para cadastrar um novo produto
+app.MapPost("/produto/cadastrar", ([FromBody] Produto novoProduto) =>
+{
+    produtos.Add(novoProduto);
+    return Results.Created($"/produto/buscar/{novoProduto.Nome}", novoProduto);
+});
+
+/*
 --PELO CORPO
 --REMOÇAO DO PRODUTO
 --ALTERAÇAO DO PRODUTO
