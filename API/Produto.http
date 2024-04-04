@@ -6,12 +6,13 @@ GET http://localhost:5088/produto/buscar/Celular
 
 
 ### Teste API restclient Cadastro de produtos
-POST http://localhost:5088/produto/cadastrar
+POST http://localhost:5088/produto/cadastrar/
 Content-Type: application/json
+
 {
-  "Nome": "Produto Exemplo",
-  "Descricao": "Descrição do produto",
-  "Preco": 100
+  "Nome": "Pao",
+  "Descricao": "Alimento",
+  "Preco": 5
 }
 
 ### Teste cadastro novo
