@@ -55,9 +55,12 @@ app.MapPost("/produto/cadastrar/{nome}/{descricao}/{valor}",
      Produto produto = new Produto(nome, descricao, valor);
 
      //Preencher o objeto pelos atributos
-     produto.Nome = nome;
+     /*produto.Nome = nome;
      produto.Descricao = descricao;
-     produto.Valor = valor;
+     produto.Valor = valor;*/
+
+     //Adicionar o Objeto dentro da lista
+     produtos.Add(produto);
  });
 
 
