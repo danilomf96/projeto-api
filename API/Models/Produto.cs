@@ -6,6 +6,8 @@ public class Produto
     //CONSTRUTOR
     public Produto()
     {
+        Id = Guid.NewGuid().ToString();
+        CriadoEm = DateTime.Now;
     }
     //Parametrizado ---> nao precisa de this.
     public Produto(string nome, string descricao, double valor)
