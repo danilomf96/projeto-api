@@ -48,7 +48,17 @@ app.MapGet("/produto/buscar/{nome}", (/* Pegar Informaçao da Rota-- URL---> */[
 );
 
 // !EXERCICIO! <---- CADASTRAR PRODUTOS DENTRO DA LISTA ---> !EXERCICIO!
-//app.MapPost("/produto/cadastrar", () => "Cadastro de produtos");
+app.MapPost("/produto/cadastrar/{nome}/{descricao}/{valor}",
+ ([FromRoute] string nome, [FromRoute] string descricao, [FromRoute] double valor) =>
+ {
+     //Prencher o objeto pelo construtor
+     Produto produto = new Produto(nome, descricao, valor);
+
+     //Preencher o objeto pelos atributos
+     produto.Nome = nome;
+     produto.Descricao = descricao;
+     produto.Valor = valor;
+ });
 
 
 /*
