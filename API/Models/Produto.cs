@@ -18,6 +18,7 @@ public class Produto
 
     //Atributos(java) ou propriedades(c#) = Caracteristicas de um Objeto
 
+
     //getter e setter em C#
     public string? Nome { get; set; }
 
@@ -25,5 +26,9 @@ public class Produto
     public string? Descricao { get; set; }
 
     public double Valor { get; set; }
+
+    public string? Id { get; set; }
+
+    public DateTime CriadoEm { get; set; }
 
 }

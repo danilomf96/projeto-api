@@ -65,10 +65,7 @@ app.MapPost("/produto/cadastrar", ([FromBody] Produto novoProduto) =>
     return Results.Created($"/produto/buscar/{novoProduto.Nome}", novoProduto);
 });
 
-/*
---PELO CORPO
+/*--PELO CORPO
 --REMOÇAO DO PRODUTO
---ALTERAÇAO DO PRODUTO
-*/
-
+--ALTERAÇAO DO PRODUTO*/
 app.Run();

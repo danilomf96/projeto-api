@@ -1,16 +1,17 @@
 ### Teste API restclient Listagem de produtos
 GET http://localhost:5088/produto/listar
 
+### Teste API restclient busca de produtos
+GET http://localhost:5088/produto/buscar/Celular
+
+
 ### Teste API restclient Cadastro de produtos
 POST http://localhost:5088/produto/cadastrar
 Content-Type: application/json
-
 {
   "Nome": "Produto Exemplo",
   "Descricao": "Descrição do produto",
   "Preco": 100
 }
 
-### Teste API restclient busca de produtos
-GET http://localhost:5088/produto/buscar/Celular
 
