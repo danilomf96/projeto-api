@@ -14,6 +14,7 @@ public class Produto
         Nome = nome;
         Descricao = descricao;
         Valor = valor;
+        CriadoEm = DateTime.Now;
     }
 
 
