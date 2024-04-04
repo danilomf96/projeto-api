@@ -56,11 +56,11 @@ app.MapPost("/produto/cadastrar/{nome}/{descricao}/{valor}",
      //Prencher o objeto pelo construtor
      Produto produto = new Produto(nome, descricao, valor);
 
-    /*Preencher o objeto pelos atributos
-     * produto.Nome = nome;
-     * produto.Descricao = descricao;
-     * produto.Valor = valor;
-     */
+     /*Preencher o objeto pelos atributos
+      * produto.Nome = nome;
+      * produto.Descricao = descricao;
+      * produto.Valor = valor;
+      */
 
      //Adicionar o Objeto dentro da lista
      produtos.Add(produto);
@@ -77,9 +77,46 @@ app.MapPost("/produto/cadastrar/", ([FromBody] Produto novoProduto) =>
 });
 /*--REMOÇAO DO PRODUTO--*/
 
+app.MapDelete("/produto/deletar/", ([FromRoute] string nome) =>
+{
+    // Encontrar o índice do produto na lista pelo nome
+    int index = produtos.FindIndex(p => p.Nome == nome);
+
+    if (index != -1)
+    {
+        produtos.RemoveAt(index);
+        return Results.Ok();
+    }
+    else
+    {
+        return Results.NotFound(); 
+    }
+}
+);
 
 /*--ALTERAÇAO DO PRODUTO--*/
 
-app.MapPut
+app.MapPut("/produto/alterar/{nome}", ([FromBody] Produto produtoAlterado,
+ [FromRoute] string nome) =>
+{
+
+    // Procurar o produto pelo nome na lista
+    var prodAux = produtos.FirstOrDefault(p => p.Nome == nome);
+
+    if (prodAux != null)
+    {
+        // Atualizar os atributos do produto existente com os atributos do produto alterado
+        prodAux.Nome = produtoAlterado.Nome;
+        prodAux.Descricao = produtoAlterado.Descricao;
+        prodAux.Valor = produtoAlterado.Valor;
+
+        // Retorna o produto alterado
+        return Results.Ok(prodAux);
+    }
+    else
+    {
+        return Results.NotFound();
+    }
+});
 
 app.Run();

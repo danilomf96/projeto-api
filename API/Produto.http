@@ -20,3 +20,16 @@ POST http://localhost:5088/produto/cadastrar/arroz/alimento/10
 
 
 
+### TESTE DE PUT
+
+PUT http://localhost:5088/produto/alterar/
+
+{
+    "Nome": "Novo Produto",
+    "Descricao": "Nova Descrição",
+    "Valor": 15.99
+}
+
+### TESDE DELETE
+
+DELETE http://localhost:5088/produto/deletar/

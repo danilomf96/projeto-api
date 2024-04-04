@@ -1,0 +1,29 @@
+   *EXPLICAÇAO DELETE*
+
+Aqui está uma explicação linha por linha:
+
+app.MapDelete("/produto/deletar/{nome}", ([FromRoute] string nome) =>: Esta linha define um endpoint de API para remoção de produto. Ele espera receber o nome do produto a ser removido como parte da rota.
+
+int index = produtos.FindIndex(p => p.Nome == nome);: Esta linha utiliza o método FindIndex para procurar na lista de produtos (produtos) o índice do produto cujo nome é igual ao nome fornecido na rota. Se o produto for encontrado, o índice será armazenado na variável index. Caso contrário, o valor de index será -1.
+
+if (index != -1): Este é um bloco condicional que verifica se o produto foi encontrado na lista. Se o índice for diferente de -1, isso indica que o produto existe na lista.
+
+produtos.RemoveAt(index);: Esta linha remove o produto da lista pelo índice encontrado. O método RemoveAt remove o elemento na posição especificada na lista.
+
+return Results.Ok();: Se o produto for encontrado e removido com sucesso, retorna uma resposta OK (200) indicando que a operação foi realizada com sucesso.
+
+return Results.NotFound();: Se o produto não for encontrado na lista, retorna um resultado de não encontrado (404).
+
+
+
+    *EXPLICAÇAO DE PUT*
+
+var produtoExistente: Esta é a declaração de uma variável local chamada produtoExistente, que será usada para armazenar o produto encontrado na lista. O var é usado aqui para permitir que o tipo seja inferido pelo compilador com base no resultado da expressão.
+
+produtos: Esta é a lista de produtos que você tem em sua aplicação.
+
+.FirstOrDefault(...): Este é um método LINQ (Language Integrated Query) que é usado para encontrar o primeiro elemento que corresponde a uma condição específica. Ele retorna o primeiro elemento da sequência que atende à condição especificada ou um valor padrão se nenhum elemento for encontrado.
+
+(p => p.Nome == nome): Este é um predicado que especifica a condição que o elemento procurado deve satisfazer. Aqui, p é uma variável de iteração que representa cada elemento da lista produtos, e a expressão p.Nome == nome verifica se o nome do produto (p.Nome) é igual ao nome fornecido como parâmetro na rota (nome).
+
+Portanto, a linha em questão busca na lista de produtos (produtos) o primeiro produto cujo nome é igual ao nome fornecido na rota. Se tal produto existir, ele será armazenado na variável produtoExistente. Se não houver nenhum produto com o nome especificado, produtoExistente será null.
