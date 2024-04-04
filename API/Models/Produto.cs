@@ -10,6 +10,7 @@ public class Produto
     //Parametrizado ---> nao precisa de this.
     public Produto(string nome, string descricao, double valor)
     {
+        Id = Guid.NewGuid().ToString();
         Nome = nome;
         Descricao = descricao;
         Valor = valor;
