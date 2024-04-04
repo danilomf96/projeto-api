@@ -14,13 +14,7 @@ var app = builder.Build();
 
 
 //criando array list e instanciando objeto
-List<Produto> produtos =
-[
-    new Produto("Celular", "IOS", 4000),
-    new Produto("Celular", "Android", 2000),
-    new Produto("TV", "LG", 2500),
-    new Produto("Placa de video", "NVIDIA", 2800),
-];
+List<Produto> produtos = new List<Produto>();
 
 
 // Funcionalidades da aplicaçao --> EndPoints
@@ -61,6 +55,7 @@ app.MapPost("/produto/cadastrar/{nome}/{descricao}/{valor}",
 
      //Adicionar o Objeto dentro da lista
      produtos.Add(produto);
+     return Results.Created("", produto);
  });
 
 

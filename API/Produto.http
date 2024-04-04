@@ -14,4 +14,8 @@ Content-Type: application/json
   "Preco": 100
 }
 
+### Teste cadastro novo
+POST http://localhost:5088/produto/cadastrar/arroz/alimento/10
+
+
 
