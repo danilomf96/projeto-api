@@ -18,8 +18,6 @@ Content-Type: application/json
 ### Teste cadastro novo
 POST http://localhost:5088/produto/cadastrar/arroz/alimento/10
 
-
-
 ### TESTE DE PUT
 
 PUT http://localhost:5088/produto/alterar/
