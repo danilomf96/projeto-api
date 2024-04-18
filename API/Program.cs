@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 Console.Clear();
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Registrar o serviço de banco de dados
+builder.Services.AddDbContext<AppDataContext>();
+
 var app = builder.Build();
 
 //getter e setter em C#
@@ -21,10 +25,20 @@ List<Produto> produtos = new List<Produto>();
 
 //GET: http://localhost:5088
 app.MapGet("/", () => "API de produtos");
+
 //GET: http://localhost:5088/produto
 app.MapGet("/produto", () => "Produtos");
-//GET: http://localhost:5088/produto/listar
-app.MapGet("/produto/listar", () => produtos);
+
+/*GET: http://localhost:5088/produto/listar
+atualização para Banco de dados!*/
+app.MapGet("/produto/listar", ([FromServices] AppDataContext context) =>
+{
+    if (context.Produtos.Any())
+    {
+        return Results.Ok(context.Produtos.ToList());
+    }
+    return Results.NotFound("Nao existem produtos na tabela");
+});
 
 //GET: http://localhost:5088/produto/buscar/nomedoproduto
 app.MapGet("/produto/buscar/{nome}", (/* Pegar Informaçao da Rota-- URL---> */[FromRoute] string nome) =>
@@ -70,14 +84,16 @@ app.MapPost("/produto/cadastrar/{nome}/{descricao}/{valor}",
 // Endpoint para cadastrar um novo produto
 
 /*--PELO CORPO -- */
-app.MapPost("/produto/cadastrar/", ([FromBody] Produto novoProduto) =>
+app.MapPost("/produto/cadastrar/", ([FromBody] Produto novoProduto, [FromServices] AppDataContext context) =>
 {
-    produtos.Add(novoProduto);
+    //Adicionar o objeto dentro da tabela do banco de dados
+    context.Produtos.Add(novoProduto);
+    context.SaveChanges();
     return Results.Created($"/produto/buscar/{novoProduto.Nome}", novoProduto);
 });
 /*--REMOÇAO DO PRODUTO--*/
 
-app.MapDelete("/produto/deletar/", ([FromRoute] string nome) =>
+app.MapDelete("/produto/deletar/{nome}", ([FromRoute] string nome) =>
 {
     // Encontrar o índice do produto na lista pelo nome
     int index = produtos.FindIndex(p => p.Nome == nome);
@@ -89,7 +105,7 @@ app.MapDelete("/produto/deletar/", ([FromRoute] string nome) =>
     }
     else
     {
-        return Results.NotFound(); 
+        return Results.NotFound();
     }
 }
 );

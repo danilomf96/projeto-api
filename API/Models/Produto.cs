@@ -35,4 +35,6 @@ public class Produto
 
     public DateTime CriadoEm { get; set; }
 
+    public int Quantidade { get; set; }
+
 }
