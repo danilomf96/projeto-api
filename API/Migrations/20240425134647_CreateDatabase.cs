@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class CreateDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,10 +16,11 @@ namespace API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Nome = table.Column<string>(type: "TEXT", nullable: true),
-                    Descricao = table.Column<string>(type: "TEXT", nullable: true),
+                    Nome = table.Column<string>(type: "TEXT", nullable: false),
+                    Descricao = table.Column<string>(type: "TEXT", maxLength: 10, nullable: true),
                     Valor = table.Column<double>(type: "REAL", nullable: false),
-                    CriadoEm = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    CriadoEm = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Quantidade = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -1,4 +1,6 @@
-﻿namespace API.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace API.Models;
 
 public class Produto
 {
@@ -24,11 +26,18 @@ public class Produto
 
 
     //getter e setter em C#
+
+    //ANOTAÇÃO - DATA ANOTATIONS -- IMPORTANTE
+    [Required(ErrorMessage = "Este campo é obrigatorio!")]
     public string? Nome { get; set; }
 
     //escrever prop para gerar o modelo dos getters e setters e autocompletar no tab
+
+    [MinLength(3, ErrorMessage = "Este campo tem o tamanho minimo de 3 caracteres.")]
+    [MaxLength(10, ErrorMessage = "Este campo tem o tamanho maximo 10 caracteres.")]
     public string? Descricao { get; set; }
 
+    [Range(1, 10000, ErrorMessage = "Valor minimo de 1 e Valor maximo 10000")]
     public double Valor { get; set; }
 
     public string? Id { get; set; }

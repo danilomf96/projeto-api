@@ -13,9 +13,9 @@ POST http://localhost:5088/produto/cadastrar/
 Content-Type: application/json
 
 {
-  "Nome": "Pao",
+  "Nome": "Pão",
   "Descricao": "Alimento",
-  "Preco": 5
+  "Valor": 0
 }
 
 

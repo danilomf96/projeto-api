@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -61,10 +62,25 @@ app.MapGet("/produto/buscar/{id}", ([FromRoute] string id, [FromServices] AppDat
 //----POST
 app.MapPost("/produto/cadastrar/", ([FromBody] Produto novoProduto, [FromServices] AppDataContext context) =>
 {
-    //Adicionar o objeto dentro da tabela do banco de dados
-    context.Produtos.Add(novoProduto);
-    context.SaveChanges();
-    return Results.Created($"/produto/buscar/{novoProduto.Nome}", novoProduto);
+    //pesquisar melhor -- fazer import do ValidationResult
+    List<ValidationResult> erros = new List<ValidationResult>();
+    if (!Validator.TryValidateObject(novoProduto, new ValidationContext(novoProduto), erros, true))
+    {
+        return Results.BadRequest(erros);
+    }
+    
+    //IMPLEMENTANDO REGRAS DE NEGOCIO --> NAO DEIXA ADICIONAR ITENS COM O MESMO NOME.
+    Produto? produtosEncontrados = context.Produtos.FirstOrDefault(x => x.Nome == novoProduto.Nome);
+    if (produtosEncontrados is null)
+    {
+        //Adicionar o objeto dentro da tabela do banco de dados
+        context.Produtos.Add(novoProduto);
+        context.SaveChanges();
+        return Results.Created($"/produto/buscar/{novoProduto.Nome}", novoProduto);
+    }
+    return Results.BadRequest("Já existe um produto com o mesmo nome.");
+
+
 });
 /*--REMOÇAO DO PRODUTO--*/
 

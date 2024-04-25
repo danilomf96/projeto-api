@@ -27,3 +27,8 @@ produtos: Esta é a lista de produtos que você tem em sua aplicação.
 (p => p.Nome == nome): Este é um predicado que especifica a condição que o elemento procurado deve satisfazer. Aqui, p é uma variável de iteração que representa cada elemento da lista produtos, e a expressão p.Nome == nome verifica se o nome do produto (p.Nome) é igual ao nome fornecido como parâmetro na rota (nome).
 
 Portanto, a linha em questão busca na lista de produtos (produtos) o primeiro produto cujo nome é igual ao nome fornecido na rota. Se tal produto existir, ele será armazenado na variável produtoExistente. Se não houver nenhum produto com o nome especificado, produtoExistente será null.
+
+
+
+CRIAR AS MIGRAÇOES ----> dotnet ef migrations add CreateDatabase
+CRIAR O BANCO ---------> dotnet ef database update
