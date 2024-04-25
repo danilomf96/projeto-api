@@ -2,8 +2,11 @@
 GET http://localhost:5088/produto/listar
 
 ### Teste API restclient busca de produtos
-GET http://localhost:5088/produto/buscar/Celular
+GET http://localhost:5088/produto/buscar/
 
+### TESDE DELETE
+
+DELETE http://localhost:5088/produto/deletar/
 
 ### Teste API restclient Cadastro de produtos
 POST http://localhost:5088/produto/cadastrar/
@@ -15,8 +18,6 @@ Content-Type: application/json
   "Preco": 5
 }
 
-### Teste cadastro novo
-POST http://localhost:5088/produto/cadastrar/arroz/alimento/10
 
 ### TESTE DE PUT
 
@@ -27,7 +28,3 @@ PUT http://localhost:5088/produto/alterar/
     "Descricao": "Nova Descrição",
     "Valor": 15.99
 }
-
-### TESDE DELETE
-
-DELETE http://localhost:5088/produto/deletar/

@@ -40,50 +40,25 @@ app.MapGet("/produto/listar", ([FromServices] AppDataContext context) =>
     return Results.NotFound("Nao existem produtos na tabela");
 });
 
-//GET: http://localhost:5088/produto/buscar/nomedoproduto
-app.MapGet("/produto/buscar/{nome}", (/* Pegar Informaçao da Rota-- URL---> */[FromRoute] string nome) =>
+//GET: http://localhost:5088/produto/buscar/iddoproduto
+app.MapGet("/produto/buscar/{id}", ([FromRoute] string id, [FromServices] AppDataContext context) =>
     {
-        for (int i = 0; i < produtos.Count; i++)
+        Produto? produto = context.Produtos.Find(id);
+        if (produto is null)
         {
-            if (produtos[i].Nome == nome)
-            {
-                //retornar o produto encontrado
-                return Results.Ok(produtos[i]);
-            }
+            return Results.NotFound("Produto não encontrado");
         }
-        return Results.NotFound();
+        return Results.Ok(produto);
     }
+    //Ternario
+    //return produto is null ? Results.NotFound("Produto não encontrado") : Results.Ok(produto);
+
 );
 
-// !EXERCICIO! <---- CADASTRAR PRODUTOS DENTRO DA LISTA ---> !EXERCICIO!
-
-
-/*
-EXERCICIOS
-1)CADASTRAR UM PRODUTO
-*/
-
-//--PELA URL
-app.MapPost("/produto/cadastrar/{nome}/{descricao}/{valor}",
- ([FromRoute] string nome, [FromRoute] string descricao, [FromRoute] double valor) =>
- {
-     //Prencher o objeto pelo construtor
-     Produto produto = new Produto(nome, descricao, valor);
-
-     /*Preencher o objeto pelos atributos
-      * produto.Nome = nome;
-      * produto.Descricao = descricao;
-      * produto.Valor = valor;
-      */
-
-     //Adicionar o Objeto dentro da lista
-     produtos.Add(produto);
-     return Results.Created("", produto);
- });
-
+// 1)CADASTRAR UM PRODUTO
 // Endpoint para cadastrar um novo produto
-
-/*--PELO CORPO -- */
+//--PELO CORPO --//
+//----POST
 app.MapPost("/produto/cadastrar/", ([FromBody] Produto novoProduto, [FromServices] AppDataContext context) =>
 {
     //Adicionar o objeto dentro da tabela do banco de dados
@@ -93,46 +68,38 @@ app.MapPost("/produto/cadastrar/", ([FromBody] Produto novoProduto, [FromService
 });
 /*--REMOÇAO DO PRODUTO--*/
 
-app.MapDelete("/produto/deletar/{nome}", ([FromRoute] string nome) =>
+app.MapDelete("/produto/deletar/{id}", ([FromRoute] string id, [FromServices] AppDataContext context) =>
 {
-    // Encontrar o índice do produto na lista pelo nome
-    int index = produtos.FindIndex(p => p.Nome == nome);
 
-    if (index != -1)
+    Produto? produto = context.Produtos.FirstOrDefault(x => x.Id == id);
+    if (produto is null)
     {
-        produtos.RemoveAt(index);
-        return Results.Ok();
+        return Results.NotFound("Produto não encontrado");
     }
-    else
-    {
-        return Results.NotFound();
-    }
+    context.Produtos.Remove(produto);
+    context.SaveChanges();
+    return Results.Ok("Produto deletado");
 }
 );
 
 /*--ALTERAÇAO DO PRODUTO--*/
 
-app.MapPut("/produto/alterar/{nome}", ([FromBody] Produto produtoAlterado,
- [FromRoute] string nome) =>
+app.MapPut("/produto/alterar/{id}", ([FromBody] Produto produtoAlterado,
+ [FromRoute] string id, [FromServices] AppDataContext context) =>
 {
 
-    // Procurar o produto pelo nome na lista
-    var prodAux = produtos.FirstOrDefault(p => p.Nome == nome);
-
-    if (prodAux != null)
+    Produto? produto = context.Produtos.Find(id);
+    if (produto is null)
     {
-        // Atualizar os atributos do produto existente com os atributos do produto alterado
-        prodAux.Nome = produtoAlterado.Nome;
-        prodAux.Descricao = produtoAlterado.Descricao;
-        prodAux.Valor = produtoAlterado.Valor;
+        return Results.NotFound("Produto não encontrado");
+    }
+    produto.Nome = produtoAlterado.Nome;
+    produto.Descricao = produtoAlterado.Descricao;
+    produto.Valor = produtoAlterado.Valor;
+    context.Produtos.Update(produto);
+    context.SaveChanges();
 
-        // Retorna o produto alterado
-        return Results.Ok(prodAux);
-    }
-    else
-    {
-        return Results.NotFound();
-    }
+    return Results.Ok("Produto alterado!");
 });
 
 app.Run();
