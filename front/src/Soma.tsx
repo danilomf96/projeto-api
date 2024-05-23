@@ -21,7 +21,7 @@ function Soma() {
   /*function escreverNumero2(e : any) {
       setNumero2(e.target.value);
     }*/
-  function somar(){
+  function somar() {
     setResultado(parseInt(numero1) + parseInt(numero2));
   }
   return (
