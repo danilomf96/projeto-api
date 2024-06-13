@@ -9,6 +9,17 @@ var builder = WebApplication.CreateBuilder(args);
 //Registrar o serviço de banco de dados
 builder.Services.AddDbContext<AppDataContext>();
 
+
+//Configurar a politica de CORS para liberar o acesso total
+builder.Services.AddCors(
+    options => options.AddPolicy
+    ("Acesso Total",
+    configs => configs.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
+    )
+);
+
+
+
 var app = builder.Build();
 
 //getter e setter em C#
@@ -68,7 +79,7 @@ app.MapPost("/produto/cadastrar/", ([FromBody] Produto novoProduto, [FromService
     {
         return Results.BadRequest(erros);
     }
-    
+
     //IMPLEMENTANDO REGRAS DE NEGOCIO --> NAO DEIXA ADICIONAR ITENS COM O MESMO NOME.
     Produto? produtosEncontrados = context.Produtos.FirstOrDefault(x => x.Nome == novoProduto.Nome);
     if (produtosEncontrados is null)
@@ -94,7 +105,7 @@ app.MapDelete("/produto/deletar/{id}", ([FromRoute] string id, [FromServices] Ap
     }
     context.Produtos.Remove(produto);
     context.SaveChanges();
-    return Results.Ok("Produto deletado");
+    return Results.Ok(context.Produtos.ToList());
 }
 );
 
@@ -117,5 +128,5 @@ app.MapPut("/produto/alterar/{id}", ([FromBody] Produto produtoAlterado,
 
     return Results.Ok("Produto alterado!");
 });
-
+app.UseCors("Acesso Total");
 app.Run();
